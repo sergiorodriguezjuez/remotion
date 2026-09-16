@@ -20,17 +20,19 @@ const Vignette: React.FC = () => (
   />
 );
 
+// Cheap tiled dot pattern instead of an SVG feTurbulence filter: turbulence
+// has to be rasterized per pixel on every single frame, which made the full
+// render extremely slow. A small repeating gradient tile is composited by
+// the GPU and costs almost nothing per frame.
 const Grain: React.FC<{ opacity?: number }> = ({ opacity = 0.05 }) => (
-  <svg
-    width="100%"
-    height="100%"
-    style={{ position: "absolute", inset: 0, opacity, mixBlendMode: "overlay" }}
-  >
-    <filter id="grainFilter">
-      <feTurbulence type="fractalNoise" baseFrequency={0.9} numOctaves={2} stitchTiles="stitch" />
-    </filter>
-    <rect width="100%" height="100%" filter="url(#grainFilter)" />
-  </svg>
+  <AbsoluteFill
+    style={{
+      opacity,
+      mixBlendMode: "overlay",
+      backgroundImage: "radial-gradient(rgba(255,255,255,0.9) 1px, transparent 1px)",
+      backgroundSize: "3px 3px",
+    }}
+  />
 );
 
 const IntroBg: React.FC<{ colors: typeof PALETTE.intro }> = ({ colors }) => {

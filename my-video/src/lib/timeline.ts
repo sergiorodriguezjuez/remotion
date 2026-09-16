@@ -1,8 +1,10 @@
 import { SCRIPT } from "../script";
 
 export const FPS = 30;
-export const WIDTH = 1920;
-export const HEIGHT = 1080;
+// Lowered from 1920x1080 for a fast preview render; bump back up for the
+// final export once the edit is approved.
+export const WIDTH = 1280;
+export const HEIGHT = 720;
 export const TITLE_CARD_FRAMES = 90;
 
 export type BackgroundVariant =
